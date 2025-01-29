@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTitle</title>
+    <link rel ="stylesheet" href = "css.css">
+    <link rel ="bootstrap_stylesheet" href = "bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <h1 class = "page_title">Password Manager</h1>
+
+    <div class="tab_bar">
+        <button class="tab_link active button" onclick="open_tab(event, 'Passwords')">Passwords</button>
+        <button class="tab_link button" onclick="open_tab(event, 'Settings')">Settings</button>
+    </div>
+
+    <div id="Passwords" class="tab_content">    
+        <button id="add_password_button" class="button">add password</button>
+        <div id="add_password_modal" class="modal"> 
+            <div class="modal_content">
+                <span class="close">&times;</span>
+                <h2>Add Password</h2>
+                <form id="password_form">
+                    <label for="password_name">Name:</label>
+                    <input type="text" id="password_name" name="password_name" required>
+                    
+                    <label for="website">Website:</label>
+                    <input type="text" id="website" name="website" required>
+                    
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" name="password" required>
+                    
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description">
+                    
+                    <button type="submit" class="button">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="saved_passwords">
+            <h3>Saved Passwords</h3>
+            <ul id="password_list">
+                <!-- Saved passwords will appear here -->
+            </ul>
+        </div>
+
+        <div id="saved_passwords_modal" class="modal">
+            <div class="modal_content">
+              <span class="close" id="detail_close">&times;</span>
+              <h2>Password Details</h2>
+              <p><strong>Website:</strong> <span id="saved_passwords_modal_website"></span></p>
+              <p><strong>Username:</strong> <span id="saved_passwords_modal_username"></span></p>
+              <p><strong>Password:</strong> <span id="saved_passwords_modal_passwords"></span></p>
+              <p><strong>Description:</strong> <span id="saved_passwords_modal_description"></span></p>
+              <button id="edit_password_button">Edit</button>
+            </div>
+          </div>
+    </div>
+    <div id="Settings" class="tab_content">
+        <h2>Settings</h2>
+        <p>This is the settings tab content.</p>
+    </div>
+
+    <script src="JS.js"></script>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
