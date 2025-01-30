@@ -2,20 +2,26 @@
     font-family: 'krungthep';
     src: url(krungthep.ttf);
 }
+
+:root {
+  --bs-green: #4bb51c;
+}
+
 body {
-    font-family: 'krungthep';
+    font-family: 'krungthep' !important;
     margin: 0;
     padding: 0;
-    background-color: #bcbcbc;
+    background-color: #bcbcbc !important; 
 }
 .page_title {
-    color: red;
+    color: #bc4d32;
     font-size: 3rem;
     text-align: center;
 }
 
 .tab_content {
     display: none; /* Hide all tabs initially */
+    transition: opacity 0.3s ease;
   }
   
   .tab_content:first-of-type {
@@ -91,4 +97,15 @@ body {
 .close:focus {
     color: black;
     text-decoration: none;
+}
+
+.password_button {
+  background-color: #ffc0cb; /* Bootstrap primary blue */
+  color: black; /* Text colour */
+  border: solid;
+  border-color: #b53a1c ;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  font-family: krungthep;
 }

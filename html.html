@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyTitle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel ="stylesheet" href = "css.css">
-    <link rel ="bootstrap_stylesheet" href = "bootstrap-5.3.3-dist/css/bootstrap.min.css">
     
 </head>
 <body>
@@ -17,11 +17,10 @@
     </div>
 
     <div id="Passwords" class="tab_content">    
-        <button id="add_password_button" class="button">add password</button>
+        <button id="add_password_button" class="button">Add Password</button>
         <div id="add_password_modal" class="modal"> 
             <div class="modal_content">
                 <span class="close">&times;</span>
-                <h2>Add Password</h2>
                 <form id="password_form">
                     <label for="password_name">Name:</label>
                     <input type="text" id="password_name" name="password_name" required>
@@ -45,9 +44,9 @@
 
         <div id="saved_passwords">
             <h3>Saved Passwords</h3>
-            <ul id="password_list">
-                <!-- Saved passwords will appear here -->
-            </ul>
+            <div id = "password_button_container">
+                
+            </div>
         </div>
 
         <div id="saved_passwords_modal" class="modal">
@@ -67,7 +66,9 @@
         <p>This is the settings tab content.</p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="JS.js"></script>
-    <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

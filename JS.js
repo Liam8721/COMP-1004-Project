@@ -3,7 +3,7 @@ var modal = document.getElementById("add_password_modal");
 var add_password_button = document.getElementById("add_password_button");
 var span = document.getElementsByClassName("close")[0];
 
-//var saved_passwords = [];
+var saved_passwords = [];
 
 class Password {
   constructor(name, website, username, password, description = '') {
@@ -14,6 +14,17 @@ class Password {
     this.description = description;
   }
 }
+window.onload = function() {
+  // Retrieve saved passwords from localStorage
+  var storedPasswords = localStorage.getItem("password");
+  if (storedPasswords) {
+    // Parse the stored data into an array of Password objects
+    saved_passwords = JSON.parse(storedPasswords);
+
+    // Generate the password buttons dynamically
+    renderSavedPasswords();
+  }
+};
 
 
 // once the user clicks on either of the tab buttons then this function is called passing the corresponding tab name and event
@@ -63,23 +74,26 @@ window.onclick = function(event) {
 password_form.onsubmit = function(event) {
   event.preventDefault(); // Prevent page reload
   
-  // Get the form values
+  // Get the form values and group values into object
   var password_name = document.getElementById("password_name").value;
   var website = document.getElementById("website").value;
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
   var description = document.getElementById("description").value;
-
   var password_object = new Password(password_name, website, username, password, description);
   
-  //saved_passwords.push(password_object);
+  // Saves recently made password to the localstorage
+  saved_passwords.push(password_object);
+  serialised_password_array = JSON.stringify(saved_passwords);
+  localStorage.setItem("password", serialised_password_array);
 
-  var password_list = document.getElementById("password_list");
-  var new_password = document.createElement("li");
-  new_password.textContent = password_name;
+  var password_buttons_container = document.getElementById("password_button_container");
+  var new_password_button = document.createElement("button");
+  new_password_button.classList.add("btn", "w-100", "btn-block", "password_button");
+  new_password_button.textContent = password_name; // Button displays the password name
 
-    // Add the list item to the password list
-    password_list.appendChild(new_password);
+  // Add the button to the container
+  password_buttons_container.appendChild(new_password_button);
 
   // Close the modal after submission 
   modal.style.display = "none";
@@ -88,48 +102,3 @@ password_form.onsubmit = function(event) {
   password_form.reset();
 };
 
-
-
-
-
-
-/*
-document.getElementById("password_list").addEventListener("click", function(event) {
-  var clicked_item = event.target; // Get the clicked list item
-  var password_name = clicked_item.textContent; // Get the name from the clicked item
-  
-  var password;
-
-  console.log("Saved passwords:");
-  saved_passwords.forEach(pwd => {
-    console.log(pwd.name);
-  }); 
-  
-  // Find the matching password object based on the name
-  for (let i = 0; i < saved_passwords.length; i++) {
-    if (saved_passwords[i].name === password_name) {
-      password = saved_passwords[i];
-      break;
-    }
-  }
-
-  if (password) {
-    document.getElementById("detail_name").textContent = password.name;
-    document.getElementById("detail_website").textContent = password.website;
-    document.getElementById("detail_username").textContent = password.username;
-    document.getElementById("detail_password").textContent = password.password;
-    
-    // Display the modal with password details
-    var saved_passwords_modal = document.getElementById("saved_passwords_modal");
-    saved_passwords_modal.style.display = "block";
-    
-    // Close the modal when the close button is clicked
-    var detail_close = document.getElementById("detail_close");
-    detail_close.onclick = function () {
-      saved_passwords_modal.style.display = "none";
-    };
-} else {
-    alert("Password not found");
-  }
-});
-*/
