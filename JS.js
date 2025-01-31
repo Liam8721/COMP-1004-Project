@@ -2,6 +2,8 @@
 var modal = document.getElementById("add_password_modal");
 var add_password_button = document.getElementById("add_password_button");
 var span = document.getElementsByClassName("close")[0];
+var password_buttons_container = document.getElementById("password_button_container");
+
 
 var saved_passwords = [];
 
@@ -14,18 +16,25 @@ class Password {
     this.description = description;
   }
 }
+
+// enters function whenever page loads
 window.onload = function() {
-  // Retrieve saved passwords from localStorage
-  var storedPasswords = localStorage.getItem("password");
-  if (storedPasswords) {
-    // Parse the stored data into an array of Password objects
-    saved_passwords = JSON.parse(storedPasswords);
-
-    // Generate the password buttons dynamically
-    renderSavedPasswords();
+  // checks if local storage has passwords
+  if (localStorage.getItem("password")) {
+    var all_password_buttons = [];
+    // loads all passwords into array
+    saved_passwords = JSON.parse(localStorage.getItem("password"));
+    // loops through entire array and creates a button out of each object element
+    for (let index = 0; index < saved_passwords.length; index++) {
+      var new_password_button = document.createElement("button");
+      new_password_button.classList.add("btn", "w-100", "btn-block", "password_button");
+      new_password_button.textContent = saved_passwords[index].name; // Button displays the password name
+      all_password_buttons.push(new_password_button)      
+    }
+    // loops through each button and appends it into div container
+    all_password_buttons.forEach(button => password_buttons_container.appendChild(button));
   }
-};
-
+}
 
 // once the user clicks on either of the tab buttons then this function is called passing the corresponding tab name and event
 function open_tab(evt, tab_name) {
@@ -71,29 +80,27 @@ window.onclick = function(event) {
   }
 }
 
-password_form.onsubmit = function(event) {
-  event.preventDefault(); // Prevent page reload
-  
+password_form.onsubmit = function() {  
   // Get the form values and group values into object
-  var password_name = document.getElementById("password_name").value;
-  var website = document.getElementById("website").value;
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  var description = document.getElementById("description").value;
-  var password_object = new Password(password_name, website, username, password, description);
+  const password_name = document.getElementById("password_name").value;
+  const website = document.getElementById("website").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const description = document.getElementById("description").value;
+  const password_object = new Password(password_name, website, username, password, description);
   
   // Saves recently made password to the localstorage
   saved_passwords.push(password_object);
   serialised_password_array = JSON.stringify(saved_passwords);
   localStorage.setItem("password", serialised_password_array);
 
-  var password_buttons_container = document.getElementById("password_button_container");
-  var new_password_button = document.createElement("button");
+  // creates password button
+  const new_password_button = document.createElement("button");
+  const new_delete_button = document.createElement("button")
+  new_delete_button.classList.add()
   new_password_button.classList.add("btn", "w-100", "btn-block", "password_button");
-  new_password_button.textContent = password_name; // Button displays the password name
-
-  // Add the button to the container
-  password_buttons_container.appendChild(new_password_button);
+  new_password_button.textContent = password_name; 
+  password_buttons_container.appendChild(new_password_button);// Appends the button to the container
 
   // Close the modal after submission 
   modal.style.display = "none";
