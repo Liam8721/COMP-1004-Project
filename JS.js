@@ -5,7 +5,7 @@ var span = document.getElementsByClassName("close")[0];
 var password_buttons_container = document.getElementById("password_button_container");
 const saved_passwords_modal = document.getElementById("saved_passwords_modal");
 const saved_passwords_div = document.getElementById("saved_passwords");
-
+const saved_changes_button = document.getElementById("save_changes_button");
 
 var saved_passwords = [];
 
@@ -82,7 +82,7 @@ window.onclick = function(event) {
   }
 }
 
-password_form.onsubmit = function() {  
+password_submit_button.onclick = function() {  
   // Get the form values and group values into object
   const password_name = document.getElementById("password_name").value;
   const website = document.getElementById("website").value;
@@ -98,8 +98,6 @@ password_form.onsubmit = function() {
 
   // creates password button
   const new_password_button = document.createElement("button");
-  const new_delete_button = document.createElement("button")
-  new_delete_button.classList.add()
   new_password_button.classList.add("btn", "w-100", "btn-block", "password_button");
   new_password_button.textContent = password_name; 
   password_buttons_container.appendChild(new_password_button);// Appends the button to the container
@@ -116,55 +114,56 @@ password_form.onsubmit = function() {
   password_form.reset();
 };
 
-
-/*
-saved_passwords_div.addEventListener("click", function (event) {
-  if (event.target.tagName === "BUTTON") {
-    for (let index = 0; index < saved_passwords.length; index++) {
-      if (saved_passwords[index].password_name == event.target.textContent) {
-        console.log(saved_passwords[index])
-        //const h2_tag = document.getElementsByTagName("h2");
-        const username = document.getElementById("saved_passwords_modal_username");
-        const password = document.getElementById("saved_passwords_modal_password");
-        const website = document.getElementById("saved_passwords_modal_website");
-        const description = document.getElementById("saved_passwords_modal_description");
-
-        //h2_tag.textContent = event.target.password_name;
-        username.textContent = event.target.username;
-        password.textContent = event.target.password;
-        website.textContent = event.target.website;
-        description.textContent = event.target.description;
-
-        modal.style.display = "flex";
-
-        break;
-      }
-      
-    }
-  }
-})
-  */
-
 saved_passwords_div.addEventListener("click", function (event) {
   if (event.target.tagName === "BUTTON") {
     for (let index = 0; index < saved_passwords.length; index++) {
       if (saved_passwords[index].name == event.target.textContent) {
-        console.log(saved_passwords[index]);
+        const span = document.getElementById("detail_close");
+        const save_button = document.getElementById("save_changes_button");
 
-        const h2_tag = document.getElementsByTagName("h2")[0];
-        const username = document.getElementById("saved_passwords_modal_username");
-        const password = document.getElementById("saved_passwords_modal_passwords");
-        const website = document.getElementById("saved_passwords_modal_website");
-        const description = document.getElementById("saved_passwords_modal_description");
-
-        h2_tag.textContent = saved_passwords[index].name;
-        username.textContent = saved_passwords[index].username;
-        password.textContent = saved_passwords[index].password;
-        website.textContent = saved_passwords[index].website;
-        description.textContent = saved_passwords[index].description;
+        document.getElementById("saved_passwords_modal_name").value = saved_passwords[index].name;
+        document.getElementById("saved_passwords_modal_username").value = saved_passwords[index].username;  
+        document.getElementById("saved_passwords_modal_passwords").value = saved_passwords[index].password;
+        document.getElementById("saved_passwords_modal_website").value = saved_passwords[index].website;
+        document.getElementById("saved_passwords_modal_description").value = saved_passwords[index].description;
 
         saved_passwords_modal.style.display = "flex";
 
+        span.onclick = function() {
+          saved_passwords_modal.style.display = "none"; 
+        }
+
+        window.onclick = function(event) {
+          if (event.target == saved_passwords_modal) {
+            saved_passwords_modal.style.display = "none"; 
+          }
+        }
+
+        save_button.onclick = function() {
+          const name_input_value = document.getElementById("saved_passwords_modal_name").value;
+          const username_input_value = document.getElementById("saved_passwords_modal_username").value;
+          const password_input_value = document.getElementById("saved_passwords_modal_passwords").value;
+          const description_input_value = document.getElementById("saved_passwords_modal_description").value;
+
+          saved_passwords[index].name = name_input_value;
+          saved_passwords[index].username = username_input_value;
+          saved_passwords[index].password = password_input_value;
+          saved_passwords[index].description = description_input_value;
+
+          event.target.textContent = saved_passwords[index].name;
+
+          document.getElementById("saved_passwords_modal_name").value = saved_passwords[index].name;
+          document.getElementById("saved_passwords_modal_username").value = saved_passwords[index].username;  
+          document.getElementById("saved_passwords_modal_passwords").value = saved_passwords[index].password;
+          document.getElementById("saved_passwords_modal_website").value = saved_passwords[index].website;
+          document.getElementById("saved_passwords_modal_description").value = saved_passwords[index].description;
+
+          serialised_password_array = JSON.stringify(saved_passwords);
+          localStorage.setItem("password", serialised_password_array);
+
+          saved_passwords_modal.style.display = "none";
+        }        
+        
         break;
       }
     }
