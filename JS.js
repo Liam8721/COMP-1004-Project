@@ -74,10 +74,12 @@ window.onload = function () {
 
     for (let index = 0; index < saved_user_account_credentials.length; index++) {
       if (saved_user_account_credentials[index].username == username) {
-        console.log("entered if statement");
-        console.log(saved_user_account_credentials[index].username);
-        console.log(saved_user_account_credentials[index].password);
-        console.log("after consoles");
+        if (saved_user_account_credentials[index].password == password) {
+          console.log("login successful");
+          login_page.style.display = "none";
+          initialise_page();
+          break;
+        }
       };
       
     }
