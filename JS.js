@@ -6,6 +6,7 @@ var password_buttons_container = document.getElementById("password_button_contai
 const saved_passwords_modal = document.getElementById("saved_passwords_modal");
 const saved_passwords_div = document.getElementById("saved_passwords");
 const saved_changes_button = document.getElementById("save_changes_button");
+const sign_out_button = document.getElementById("sign_out_button");
 
 var saved_passwords = [];
 var saved_user_account_credentials = [];
@@ -29,6 +30,10 @@ class User_Account_Credentials {
 
 // Login Screen that loads instantly once page loads
 window.onload = function () {
+  sign_in();
+};
+
+function sign_in() {
   if (localStorage.getItem("account_credentials")) {
     saved_user_account_credentials = JSON.parse(localStorage.getItem("account_credentials"));
   }
@@ -89,7 +94,7 @@ window.onload = function () {
       };
     }
   }
-};
+}
 
 // enters function whenever page loads
 function initialise_page() {
@@ -152,6 +157,11 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none"; 
   }
+}
+
+// when user clicks the sign out button the sign in modal will appear
+sign_out_button.onclick = function() {
+  sign_in();
 }
 
 password_submit_button.onclick = function() {  
