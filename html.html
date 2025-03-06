@@ -9,6 +9,38 @@
     
 </head>
 <body>
+    <div id="login_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>login screen</h1>
+            
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="login_username" id="login_username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="login_password" id="login_password" required>
+
+            <button type="button" class="button" id = "create_new_account">Create New Account</button>
+            <button type="button" class="button" id = "login_button">Login</button>
+
+            <label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
+        </div>
+    </div>
+
+    <div id="create_new_account_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>Create your account</h1>
+            
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="create_new_account_username" id="create_new_account_username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="create_new_account_password" id="create_new_account_password" required>
+
+            <button type="button" class="button" id = "sign_up">Sign up</button>
+
+        </div>
+    </div>
+      
     <h1 class = "page_title">Password Manager</h1>
 
     <div class="tab_bar">

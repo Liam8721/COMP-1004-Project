@@ -8,6 +8,7 @@ const saved_passwords_div = document.getElementById("saved_passwords");
 const saved_changes_button = document.getElementById("save_changes_button");
 
 var saved_passwords = [];
+var saved_user_account_credentials = [];
 
 class Password {
   constructor(name, website, username, password, description = '') {
@@ -19,8 +20,72 @@ class Password {
   }
 }
 
+class User_Account_Credentials {
+  constructor(username, password) {
+    this.username = username;
+    this.password = password;
+  }
+}
+
+// Login Screen that loads instantly once page loads
+window.onload = function () {
+  if (localStorage.getItem("account_credentials")) {
+    saved_user_account_credentials = JSON.parse(localStorage.getItem("account_credentials"));
+  }
+
+  const login_page = document.getElementById("login_modal");
+  const create_new_account_page = document.getElementById("create_new_account_modal");
+  const create_new_account_button = document.getElementById("create_new_account");
+  const login_button = document.getElementById("login_button");
+
+  // Display the modal
+  login_page.style.display = "flex";
+
+  create_new_account_button.onclick = function () {
+    const sign_up_button = document.getElementById("sign_up");
+
+    login_page.style.display = "none";
+    create_new_account_page.style.display = "flex";
+
+    sign_up_button.onclick = function () {
+      const username = document.getElementById("login_username").value;
+      const password = document.getElementById("login_password").value;
+
+      const credential_object = new User_Account_Credentials(username, password);
+      saved_user_account_credentials.push(credential_object);
+      serialised_user_account_credential_array = JSON.stringify(saved_user_account_credentials);
+      localStorage.setItem("account_credentials", serialised_user_account_credential_array);
+
+      console.log("sign up");
+    }
+  }
+
+  login_button.onclick = function () {
+    console.log("login clicked");
+    const username = document.getElementById("login_username").value;
+    const password = document.getElementById("login_password").value;
+    console.log("const found");
+
+    if (localStorage.getItem("account_credentials")) {
+      console.log("account credential found");
+    }
+
+    
+
+    for (let index = 0; index < saved_user_account_credentials.length; index++) {
+      if (saved_user_account_credentials[index].username == username) {
+        console.log("entered if statement");
+        console.log(saved_user_account_credentials[index].username);
+        console.log(saved_user_account_credentials[index].password);
+        console.log("after consoles");
+      };
+      
+    }
+  }
+};
+
 // enters function whenever page loads
-window.onload = function() {
+function initialise_page() {
   // checks if local storage has passwords
   if (localStorage.getItem("password")) {
     var all_password_buttons = [];
