@@ -43,9 +43,15 @@ window.onload = function () {
 
   create_new_account_button.onclick = function () {
     const sign_up_button = document.getElementById("sign_up");
+    const back_button = document.getElementById("back_button");
 
     login_page.style.display = "none";
     create_new_account_page.style.display = "flex";
+
+    back_button.onclick = function () {
+      create_new_account_page.style.display = "none";
+      login_page.style.display = "flex";
+    }
 
     sign_up_button.onclick = function () {
       const username = document.getElementById("login_username").value;
@@ -81,7 +87,6 @@ window.onload = function () {
           break;
         }
       };
-      
     }
   }
 };
