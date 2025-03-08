@@ -1,4 +1,5 @@
-// GLOBAL VARIABLES 
+// GLOBAL VARIABLES
+// DOM elements 
 var modal = document.getElementById("add_password_modal");
 var add_password_button = document.getElementById("add_password_button");
 var span = document.getElementsByClassName("close")[0];
@@ -8,6 +9,7 @@ const saved_passwords_div = document.getElementById("saved_passwords");
 const saved_changes_button = document.getElementById("save_changes_button");
 const sign_out_button = document.getElementById("sign_out_button");
 
+// password arrays
 var saved_passwords = [];
 var saved_user_account_credentials = [];
 
@@ -15,12 +17,17 @@ var saved_user_account_credentials = [];
 const ten_minutes = 600000;
 var last_time = 0;
 var current_time = 0;
+
+// checks if the user has been inactive for 10 minutes for auto sign out
 function timer() {
   current_time = Date.now();
   last_time = localStorage.getItem("last time");
+  // if user has been acive for 10 minutes then sign out
   if (current_time - last_time > ten_minutes) {
     sign_in(current_time);
-  } else {
+  }
+  // if user has been active for less than 10 minutes then initialise the page and skip sign in
+  else {
     initialise_page();
   }
 }
@@ -42,62 +49,89 @@ class User_Account_Credentials {
   }
 }
 
-// Login Screen that loads instantly once page loads
-window.onload = function () {
-  timer();
-};
+window.onload = timer();
 
 function sign_in(current_time) {
+  // checks if there are any user accounts
   if (localStorage.getItem("account_credentials")) {
+    // loads all user accounts into array
     saved_user_account_credentials = JSON.parse(localStorage.getItem("account_credentials"));
   }
 
+  // DOM elements
   const login_page = document.getElementById("login_modal");
-  const create_new_account_page = document.getElementById("create_new_account_modal");
   const create_new_account_button = document.getElementById("create_new_account");
   const login_button = document.getElementById("login_button");
 
   // Display the modal
   login_page.style.display = "flex";
 
+  // if user clicks create new account button then create new account page will appear
   create_new_account_button.onclick = function () {
-    const sign_up_button = document.getElementById("sign_up");
-    const back_button = document.getElementById("back_button");
-
-    login_page.style.display = "none";
-    create_new_account_page.style.display = "flex";
-
-    back_button.onclick = function () {
-      create_new_account_page.style.display = "none";
-      login_page.style.display = "flex";
-    }
-
-    sign_up_button.onclick = function () {
-      const username = document.getElementById("create_new_account_username").value;
-      const password = document.getElementById("create_new_account_password").value;
-
-      const credential_object = new User_Account_Credentials(username, password);
-      saved_user_account_credentials.push(credential_object);
-      serialised_user_account_credential_array = JSON.stringify(saved_user_account_credentials);
-      localStorage.setItem("account_credentials", serialised_user_account_credential_array);
-
-      localStorage.setItem("last time", Date.now());
-    }
+    create_new_account_modal_setup(login_page); 
   }
 
+  // if user clicks login button then process login function will be called
   login_button.onclick = function () {
-    const username = document.getElementById("login_username").value;
-    const password = document.getElementById("login_password").value;
+    process_login(current_time, login_page);
+  } 
+}
 
-    for (let index = 0; index < saved_user_account_credentials.length; index++) {
-      if (saved_user_account_credentials[index].username == username) {
-        if (saved_user_account_credentials[index].password == password) {
-          login_page.style.display = "none";
-          localStorage.setItem("last time", current_time);
-          initialise_page();
-          break;
-        }
-      };
+// create new account modal
+function create_new_account_modal_setup(login_page) {
+  // DOM elements
+  const sign_up_button = document.getElementById("sign_up");
+  const back_button = document.getElementById("back_button");
+  const create_new_account_page = document.getElementById("create_new_account_modal");
+
+  login_page.style.display = "none";// close login page modal
+  create_new_account_page.style.display = "flex";// open create new account modal
+
+  // when user clicks the back button the login modal will appear
+  back_button.onclick = function () {
+    create_new_account_page.style.display = "none";
+    login_page.style.display = "flex";
+  }
+
+  // if user clicks sign up button then save new account details
+  sign_up_button.onclick = function () {
+    save_new_account_details();
+  } 
+}
+
+// saves the new account details to local storage
+function save_new_account_details() {
+  // DOM elements
+  const username = document.getElementById("create_new_account_username").value;
+  const password = document.getElementById("create_new_account_password").value;
+
+  // creates a new user account object and pushes it into array containing all user accounts
+  const credential_object = new User_Account_Credentials(username, password);
+  saved_user_account_credentials.push(credential_object);
+
+  // saves the array of user accounts to local storage
+  serialised_user_account_credential_array = JSON.stringify(saved_user_account_credentials);
+  localStorage.setItem("account_credentials", serialised_user_account_credential_array);
+
+  // sets a new time for when the user was last active
+  localStorage.setItem("last time", Date.now());
+}
+
+// checks if the user has entered the correct credentials
+function process_login(current_time, login_page) {
+  // DOM elements
+  const username = document.getElementById("login_username").value;
+  const password = document.getElementById("login_password").value;
+
+  // loops through all user accounts and checks if the entered credentials match
+  for (let index = 0; index < saved_user_account_credentials.length; index++) {
+    if (saved_user_account_credentials[index].username == username) {
+      if (saved_user_account_credentials[index].password == password) {
+        login_page.style.display = "none";// close modal
+        localStorage.setItem("last time", current_time);// set new time for when user was last active
+        initialise_page();
+        break;// break out of loop
+      }
     }
   }
 }
@@ -167,12 +201,17 @@ window.onclick = function(event) {
 
 // when user clicks the sign out button the sign in modal will appear
 sign_out_button.onclick = function() {
-  saved_passwords = [];
-  password_buttons_container.innerHTML = "";
-
-  current_time = Date.now();
+  current_time = reset_variables();
 
   sign_in(current_time);
+}
+
+// resets all variables and clears the password buttons container
+function reset_variables() {
+  saved_passwords = [];// clears the saved passwords array
+  password_buttons_container.innerHTML = "";// clears the password buttons container
+
+  return Date.now();// returns the current time
 }
 
 password_submit_button.onclick = function() {  
