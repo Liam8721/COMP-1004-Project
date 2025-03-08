@@ -169,7 +169,10 @@ window.onclick = function(event) {
 sign_out_button.onclick = function() {
   saved_passwords = [];
   password_buttons_container.innerHTML = "";
-  sign_in();
+
+  current_time = Date.now();
+
+  sign_in(current_time);
 }
 
 password_submit_button.onclick = function() {  
