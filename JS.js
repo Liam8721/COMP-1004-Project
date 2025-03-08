@@ -11,6 +11,18 @@ const sign_out_button = document.getElementById("sign_out_button");
 var saved_passwords = [];
 var saved_user_account_credentials = [];
 
+// Timer varibals
+const ten_minutes = 600000;
+var last_time = 0;
+var current_time = 0;
+function timer() {
+  current_time = Date.now();
+  last_time = localStorage.getItem("last time");
+  if (current_time - last_time > ten_minutes) {
+    sign_in(current_time);
+  }
+}
+
 class Password {
   constructor(name, website, username, password, description = '') {
     this.name = name;
@@ -30,10 +42,10 @@ class User_Account_Credentials {
 
 // Login Screen that loads instantly once page loads
 window.onload = function () {
-  sign_in();
+  timer();
 };
 
-function sign_in() {
+function sign_in(current_time) {
   if (localStorage.getItem("account_credentials")) {
     saved_user_account_credentials = JSON.parse(localStorage.getItem("account_credentials"));
   }
@@ -68,26 +80,20 @@ function sign_in() {
       localStorage.setItem("account_credentials", serialised_user_account_credential_array);
 
       console.log("sign up");
+
+      localStorage.setItem("last time", Date.now());
     }
   }
 
   login_button.onclick = function () {
-    console.log("login clicked");
     const username = document.getElementById("login_username").value;
     const password = document.getElementById("login_password").value;
-    console.log("const found");
-
-    if (localStorage.getItem("account_credentials")) {
-      console.log("account credential found");
-    }
-
-    
 
     for (let index = 0; index < saved_user_account_credentials.length; index++) {
       if (saved_user_account_credentials[index].username == username) {
         if (saved_user_account_credentials[index].password == password) {
-          console.log("login successful");
           login_page.style.display = "none";
+          localStorage.setItem("last time", current_time);
           initialise_page();
           break;
         }
