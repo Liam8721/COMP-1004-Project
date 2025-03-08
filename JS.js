@@ -20,6 +20,8 @@ function timer() {
   last_time = localStorage.getItem("last time");
   if (current_time - last_time > ten_minutes) {
     sign_in(current_time);
+  } else {
+    initialise_page();
   }
 }
 
