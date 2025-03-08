@@ -71,15 +71,13 @@ function sign_in(current_time) {
     }
 
     sign_up_button.onclick = function () {
-      const username = document.getElementById("login_username").value;
-      const password = document.getElementById("login_password").value;
+      const username = document.getElementById("create_new_account_username").value;
+      const password = document.getElementById("create_new_account_password").value;
 
       const credential_object = new User_Account_Credentials(username, password);
       saved_user_account_credentials.push(credential_object);
       serialised_user_account_credential_array = JSON.stringify(saved_user_account_credentials);
       localStorage.setItem("account_credentials", serialised_user_account_credential_array);
-
-      console.log("sign up");
 
       localStorage.setItem("last time", Date.now());
     }
