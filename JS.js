@@ -167,6 +167,8 @@ window.onclick = function(event) {
 
 // when user clicks the sign out button the sign in modal will appear
 sign_out_button.onclick = function() {
+  saved_passwords = [];
+  password_buttons_container.innerHTML = "";
   sign_in();
 }
 
