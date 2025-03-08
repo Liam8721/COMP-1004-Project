@@ -32,6 +32,7 @@ function timer() {
   }
 }
 
+// Password class
 class Password {
   constructor(name, website, username, password, description = '') {
     this.name = name;
@@ -42,6 +43,7 @@ class Password {
   }
 }
 
+// User Account Credentials class
 class User_Account_Credentials {
   constructor(username, password) {
     this.username = username;
@@ -49,6 +51,7 @@ class User_Account_Credentials {
   }
 }
 
+// Starts SPA
 window.onload = timer();
 
 function sign_in(current_time) {
