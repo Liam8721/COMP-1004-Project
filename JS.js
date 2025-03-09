@@ -91,6 +91,7 @@ function sign_in(current_time) {
   const login_page = document.getElementById("login_modal");
   const create_new_account_button = document.getElementById("create_new_account");
   const login_button = document.getElementById("login_button");
+  const forgot_password_button = document.getElementById("forgot_password_button");
 
   // Display the modal
   login_page.style.display = "flex";
@@ -104,6 +105,55 @@ function sign_in(current_time) {
   login_button.onclick = function () {
     process_login(current_time, login_page);
   } 
+
+  forgot_password_button.onclick = function () {
+    forgot_password_page(login_page);
+  }
+}
+
+// forgot password modal
+function forgot_password_page(login_page) {
+  // DOM elements
+  const forgot_password_page = document.getElementById("forgot_password_modal");
+  const back_button = document.getElementById("back_button_forgot_password");
+  const submit_button = document.getElementById("forgot_password_submit_username");
+
+  // close login page modal
+  login_page.style.display = "none";
+  forgot_password_page.style.display = "flex";
+
+  // when user clicks the back button the login modal will appear
+  back_button.onclick = function () {
+    forgot_password_page.style.display = "none";
+    login_page.style.display = "flex";
+  }
+
+  // if user clicks submit button then ask security question
+  submit_button.onclick = function () {
+    forgot_password_page.style.display = "none";
+    security_questions_page(login_page);
+  }
+}
+
+function security_questions_page(login_page) {
+  // DOM elements
+  const security_questions_page = document.getElementById("security_questions_modal");
+  const back_button = document.getElementById("back_button_security_questions");
+  const submit_button = document.getElementById("security_questions_submit");
+
+  // close forgot password modal
+  security_questions_page.style.display = "flex";
+
+  // when user clicks the back button the login modal will appear
+  back_button.onclick = function () {
+    security_questions_page.style.display = "none";
+    login_page.style.display = "flex";
+  }
+
+  // if user clicks submit button then check if answers are correct
+  submit_button.onclick = function () {
+    //check answers in new function
+  }
 }
 
 // create new account modal
