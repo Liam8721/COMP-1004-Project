@@ -14,22 +14,42 @@ var saved_passwords = [];
 var saved_user_account_credentials = [];
 
 // Timer varibals
-const ten_minutes = 600000;
+const ten_minutes = 60000;
 var last_time = 0;
 var current_time = 0;
 
+// sign out variables
+var authenticated = JSON.parse(localStorage.getItem("authenticated")) || false;
+
 // checks if the user has been inactive for 10 minutes for auto sign out
 function timer() {
+  authenticated = JSON.parse(localStorage.getItem("authenticated"));
+
   current_time = Date.now();
   last_time = localStorage.getItem("last time");
-  // if user has been acive for 10 minutes then sign out
-  if (current_time - last_time > ten_minutes) {
+  
+  if (authenticated == true) {
+    // if user has been acive for 10 minutes then sign out
+    if (current_time - last_time > ten_minutes) {
+      authenticated = false;
+      localStorage.setItem("authenticated", authenticated);
+      localStorage.setItem("last time", Date.now());
+      sign_in(current_time);
+    }
+    // if user has been active for less than 10 minutes then initialise the page and skip sign in
+    else {
+      initialise_page();
+    }
+  } else {
+    // if user is not authenticated then sign in
+    reset_timer();
     sign_in(current_time);
   }
-  // if user has been active for less than 10 minutes then initialise the page and skip sign in
-  else {
-    initialise_page();
-  }
+}
+
+function reset_timer() {
+  last_time = Date.now();
+  localStorage.setItem("last time", last_time);
 }
 
 // Password class
@@ -55,6 +75,12 @@ class User_Account_Credentials {
 window.onload = timer();
 
 function sign_in(current_time) {
+  if (authenticated) {
+    // If authenticated, skip the login modal and initialize the page
+    initialise_page();
+    return; // Exit the function
+  }
+
   // checks if there are any user accounts
   if (localStorage.getItem("account_credentials")) {
     // loads all user accounts into array
@@ -130,6 +156,8 @@ function process_login(current_time, login_page) {
   for (let index = 0; index < saved_user_account_credentials.length; index++) {
     if (saved_user_account_credentials[index].username == username) {
       if (saved_user_account_credentials[index].password == password) {
+        authenticated = true;
+        localStorage.setItem("authenticated", authenticated);
         login_page.style.display = "none";// close modal
         localStorage.setItem("last time", current_time);// set new time for when user was last active
         initialise_page();
@@ -202,19 +230,45 @@ window.onclick = function(event) {
   }
 }
 
+document.addEventListener("click", reset_inactivity_timer);
+document.addEventListener("keypress", reset_inactivity_timer);
+
+function reset_inactivity_timer() {
+  // Get the current time
+  current_time = Date.now();
+
+  // Get the last activity time from localStorage
+  last_time = localStorage.getItem("last time");
+
+  // Check if the user has been inactive for 10 minutes
+  if (current_time - last_time > ten_minutes) {
+    // Force the user to sign in again
+    authenticated = false;
+    localStorage.setItem("authenticated", authenticated);
+    sign_in(current_time); // Show the login modal
+  } else {
+    // Update the last activity time
+    last_time = Date.now();
+    localStorage.setItem("last time", last_time);
+  }
+}
+
 // when user clicks the sign out button the sign in modal will appear
 sign_out_button.onclick = function() {
-  current_time = reset_variables();
+  manual_sign_out();
+}
 
-  sign_in(current_time);
+function manual_sign_out() {
+  authenticated = false;
+  localStorage.setItem("authenticated", authenticated);
+  reset_variables(); // Reset variables and clear UI
+  sign_in(current_time); // Show the login modal
 }
 
 // resets all variables and clears the password buttons container
 function reset_variables() {
   saved_passwords = [];// clears the saved passwords array
   password_buttons_container.innerHTML = "";// clears the password buttons container
-
-  return Date.now();// returns the current time
 }
 
 password_submit_button.onclick = function() {  
