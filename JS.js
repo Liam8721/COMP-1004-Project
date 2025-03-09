@@ -402,7 +402,6 @@ saved_passwords_div.addEventListener("click", function (event) {
 
           saved_passwords_modal.style.display = "none";
         }        
-        
         break;
       }
     }
