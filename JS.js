@@ -115,7 +115,7 @@ function setup_security_questions(login_page) {
   // DOM elements
   const setup_security_questions_page = document.getElementById("setup_security_questions_modal");
   const back_button = document.getElementById("back_button_setup_security_questions");
-  const submit_button = document.getElementById("setup_security_questions_submit");
+  const submit_button = document.getElementById("submit_setup_security_quenstion_answers");
 
   // close login page modal
   login_page.style.display = "none";
@@ -129,8 +129,31 @@ function setup_security_questions(login_page) {
 
   // if user clicks submit button then save security questions
   submit_button.onclick = function () {
-    save_security_questions();
+    console.log("submit button clicked");
+
+    save_security_questions(setup_security_questions_page);
   }
+}
+
+function save_security_questions(setup_security_questions_page) {
+  // DOM elements
+  const new_security_question_1 = document.getElementById("question_1_setup_security_questions").value;
+  const new_security_answer_1 = document.getElementById("answer_1_setup_security_questions").value;
+  const new_security_question_2 = document.getElementById("question_2_setup_security_questions").value;
+  const new_security_answer_2 = document.getElementById("answer_2_setup_security_questions").value;
+
+  // saves security questions to local storage
+  localStorage.setItem("security_question_1", new_security_question_1);
+  localStorage.setItem("security_answer_1", new_security_answer_1);
+  localStorage.setItem("security_question_2", new_security_question_2);
+  localStorage.setItem("security_answer_2", new_security_answer_2);
+
+  // close modal
+  setup_security_questions_page.style.display = "none";
+
+  // open login modal
+  const login_page = document.getElementById("login_modal");
+  login_page.style.display = "flex";
 }
 
 // forgot password modal
