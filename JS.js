@@ -12,6 +12,7 @@ const sign_out_button = document.getElementById("sign_out_button");
 // password arrays
 var saved_passwords = [];
 var saved_user_account_credentials = [];
+var saved_security_questions = [];
 
 // Timer varibals
 const ten_minutes = 60000;
@@ -71,6 +72,16 @@ class User_Account_Credentials {
   }
 }
 
+// Security Questions class
+class Security_Questions {
+  constructor(question1, question1_answer, question2, question2_answer) {
+    this.question1 = question1;
+    this.question1_answer = question1_answer;
+    this.question2 = question2;
+    this.question2_answer = question2_answer;
+  }
+}
+
 // Starts SPA
 window.onload = timer();
 
@@ -111,7 +122,7 @@ function sign_in(current_time) {
   }
 }
 
-function setup_security_questions(login_page) {
+function setup_security_questions(login_page, username, password) {
   // DOM elements
   const setup_security_questions_page = document.getElementById("setup_security_questions_modal");
   const back_button = document.getElementById("back_button_setup_security_questions");
@@ -131,29 +142,42 @@ function setup_security_questions(login_page) {
   submit_button.onclick = function () {
     console.log("submit button clicked");
 
-    save_security_questions(setup_security_questions_page);
+    save_security_questions(setup_security_questions_page, username, password);
   }
 }
 
-function save_security_questions(setup_security_questions_page) {
+function save_security_questions(setup_security_questions_page, username, password) { 
   // DOM elements
   const new_security_question_1 = document.getElementById("question_1_setup_security_questions").value;
   const new_security_answer_1 = document.getElementById("answer_1_setup_security_questions").value;
   const new_security_question_2 = document.getElementById("question_2_setup_security_questions").value;
   const new_security_answer_2 = document.getElementById("answer_2_setup_security_questions").value;
 
-  // saves security questions to local storage
-  localStorage.setItem("security_question_1", new_security_question_1);
-  localStorage.setItem("security_answer_1", new_security_answer_1);
-  localStorage.setItem("security_question_2", new_security_question_2);
-  localStorage.setItem("security_answer_2", new_security_answer_2);
+  const unique_id = Math.floor(Math.random() * 1000000);
 
+  // creates a new user account object
+  const credential_object = new User_Account_Credentials(username, password);
+
+  // creates a new user account object
+  const security_question_object = new Security_Questions(new_security_question_1, new_security_answer_1, new_security_question_2, new_security_answer_2);
+  
+  const userData = {
+    credentials: credential_object,
+    securityQuestions: security_question_object
+  };
+
+  // saves the new user data to local storage
+  localStorage.setItem(unique_id, JSON.stringify(userData));
+  
   // close modal
   setup_security_questions_page.style.display = "none";
 
   // open login modal
   const login_page = document.getElementById("login_modal");
   login_page.style.display = "flex";
+
+  // sets a new time for when the user was last active
+  localStorage.setItem("last time", Date.now());
 }
 
 // forgot password modal
@@ -243,30 +267,20 @@ function create_new_account_modal_setup(login_page) {
 
   // if user clicks sign up button then save new account details
   sign_up_button.onclick = function () {
+    const username = document.getElementById("create_new_account_username").value;
+    const password = document.getElementById("create_new_account_password").value;
+
     save_new_account_details();
 
     create_new_account_page.style.display = "none";
 
-    setup_security_questions(login_page);
+    setup_security_questions(login_page, username, password);
   } 
 }
 
 // saves the new account details to local storage
 function save_new_account_details() {
-  // DOM elements
-  const username = document.getElementById("create_new_account_username").value;
-  const password = document.getElementById("create_new_account_password").value;
-
-  // creates a new user account object and pushes it into array containing all user accounts
-  const credential_object = new User_Account_Credentials(username, password);
-  saved_user_account_credentials.push(credential_object);
-
-  // saves the array of user accounts to local storage
-  serialised_user_account_credential_array = JSON.stringify(saved_user_account_credentials);
-  localStorage.setItem("account_credentials", serialised_user_account_credential_array);
-
-  // sets a new time for when the user was last active
-  localStorage.setItem("last time", Date.now());
+  
 }
 
 // checks if the user has entered the correct credentials
