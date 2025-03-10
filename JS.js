@@ -111,6 +111,28 @@ function sign_in(current_time) {
   }
 }
 
+function setup_security_questions(login_page) {
+  // DOM elements
+  const setup_security_questions_page = document.getElementById("setup_security_questions_modal");
+  const back_button = document.getElementById("back_button_setup_security_questions");
+  const submit_button = document.getElementById("setup_security_questions_submit");
+
+  // close login page modal
+  login_page.style.display = "none";
+  setup_security_questions_page.style.display = "flex";
+
+  // when user clicks the back button the login modal will appear
+  back_button.onclick = function () {
+    setup_security_questions_page.style.display = "none";
+    login_page.style.display = "flex";
+  }
+
+  // if user clicks submit button then save security questions
+  submit_button.onclick = function () {
+    save_security_questions();
+  }
+}
+
 // forgot password modal
 function forgot_password_page(login_page) {
   // DOM elements
@@ -199,6 +221,10 @@ function create_new_account_modal_setup(login_page) {
   // if user clicks sign up button then save new account details
   sign_up_button.onclick = function () {
     save_new_account_details();
+
+    create_new_account_page.style.display = "none";
+
+    setup_security_questions(login_page);
   } 
 }
 
