@@ -130,8 +130,31 @@ function forgot_password_page(login_page) {
 
   // if user clicks submit button then ask security question
   submit_button.onclick = function () {
-    forgot_password_page.style.display = "none";
+    authenticate_username(forgot_password_page);
+
     security_questions_page(login_page);
+  }
+}
+
+function authenticate_username(forgot_password_page) {
+  // DOM elements
+  const username = document.getElementById("forgot_password_username").value;
+  const security_questions = document.getElementById("security_questions_modal");
+  found = false;
+
+  // loops through all user accounts and checks if the entered username matches
+  for (let index = 0; index < saved_user_account_credentials.length; index++) {
+    if (saved_user_account_credentials[index].username == username) {
+      // if username matches then display security questions
+      forgot_password_page.style.display = "none";
+      found = true;
+      security_questions.style.display = "flex";
+      break;
+    }
+  }
+
+  if (!found) {
+    alert("Username not found");
   }
 }
 
@@ -141,8 +164,8 @@ function security_questions_page(login_page) {
   const back_button = document.getElementById("back_button_security_questions");
   const submit_button = document.getElementById("security_questions_submit");
 
-  // close forgot password modal
-  security_questions_page.style.display = "flex";
+  // close login page modal
+  login_page.style.display = "none";
 
   // when user clicks the back button the login modal will appear
   back_button.onclick = function () {
@@ -153,6 +176,7 @@ function security_questions_page(login_page) {
   // if user clicks submit button then check if answers are correct
   submit_button.onclick = function () {
     //check answers in new function
+    console.log("submit button clicked");
   }
 }
 
