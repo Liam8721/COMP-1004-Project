@@ -1,5 +1,7 @@
 # COMP 1004 Project
 # Student - Web Project
 
-I haven't completed this module yet and I'm excited to see my final product. so far I have completed the layout and I am now just adding functionality to specific buttons and researching encrytpion/hashing algorithms. 
+This web application is a password manager designed to securely store and manage user credentials. It allows users to create accounts, log in, and save passwords for various websites. The application includes features such as password strength validation, account recovery using security questions or recovery keys, and customizable user settings. Sensitive data is encrypted using the Web Crypto API, ensuring secure storage in the browser's local storage. The application provides a user-friendly interface with modals for login, account creation, password management, and recovery processes.
+
+
  
