@@ -12,34 +12,54 @@
     <div id="login_modal" class="modal"> 
         <div class="modal_content">
             <h1>login screen</h1>
+            <form id="login_form">
             
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="login_username" id="login_username" required>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="login_username" id="login_username" autocomplete="off">
 
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="login_password" id="login_password" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="login_password" id="login_password" autocomplete="off">
+
+            </form>
 
             <button type="button" class="button" id = "create_new_account">Create New Account</button>
             <button type="button" class="button" id = "login_button">Login</button>
 
-            <button type="button" class="button" id = "forgot_password_button">Forgot Password</button>
-
-            <label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
+            <button type="button" class="button" id = "forgot_credentials_button">Forgot Credentials</button>
         </div>
     </div>
 
     <div id="create_new_account_modal" class="modal"> 
         <div class="modal_content">
             <h1>Create your account</h1>
-            <button type="button" class="button" id = "back_button">Back Button</button>
+            <button type="button" class="button" id = "create_account_back_button">Back Button</button>
+            <form id="create_account_form">
             
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="create_new_account_username" id="create_new_account_username" required>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="create_account_username" id="create_account_username" autocomplete="off">
+                <div id="username_requirements" class="requirements">
+                    <p>Username must:</p>
+                    <ul>
+                        <li id="username_unique">must be unique</li>
+                    </ul>
+                </div>
 
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="create_new_account_password" id="create_new_account_password" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="create_account_password" id="create_account_password" autocomplete="off">
+                <div id="password_requirements" class="requirements">
+                    <p>Password must:</p>
+                    <ul>
+                        <li id="password_length">Be at least 8 characters long</li>
+                        <li id="password_character_variety">must use at least 1 letter (a-Z), 1 number (0-9) and 1 special symbol (e.g., !, @, #, $, %, etc)</li>
+                        <li id="password_no_spaces">cannot contain spaces</li>
+                        <li id="password_unique">must be unique</li>
+                        <li id="password_case">must constain at least 1 uppercase and 1 lowercase </li>
+                    </ul>
 
-            <button type="button" class="button" id = "sign_up">Sign up</button>
+            </form>
+            </div>
+
+            <button type="button" class="button" id = "sign_up_button">Sign up</button>
 
         </div>
     </div>
@@ -48,9 +68,12 @@
         <div class="modal_content">
             <h1>Forgot Password</h1>
             <button type="button" class="button" id = "back_button_forgot_password">Back Button</button>
-            
+            <form id="forgot_password_form">
+
             <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="forgot_password_username" id="forgot_password_username" required>
+            <input type="text" placeholder="Enter Username" name="forgot_password_username" id="forgot_password_username" autocomplete="off">
+
+            </form>
 
             <button type="button" class="button" id = "forgot_password_submit_username">Enter</button>
 
@@ -60,108 +83,249 @@
     <div id="security_questions_modal" class="modal"> 
         <div class="modal_content">
             <h1>Security Questions</h1>
-            <button type="button" class="button" id = "back_button_security_questions">Back Button</button>
-            
-            <label for="question_1"><b>Question 1</b></label>
-            <input type="text" placeholder="Enter answer" name="question_1_security_questions" id="question_1_security_questions" required>
+            <button type="button" class="button" id = "security_questions_back_button">Back Button</button>
+            <form id="security_questions_form">
 
-            <button type="button" class="button" id = "submit_security_quenstion_answers">Submit</button>
+                <label for="question_1"><b></b></label>
+                <input type="text" placeholder="Enter answer" name="question_1_security_questions" id="question_1_security_questions" autocomplete="off">
+
+                <label for="question_2"><b></b></label>
+                <input type="text" placeholder="Enter answer" name="question_2_security_questions" id="question_2_security_questions" autocomplete="off">
+
+            </form>
+            <button type="button" class="button" id = "submit_security_answers_button">Submit</button>
 
         </div>
     </div>
 
-    <div id="setup_security_questions_modal" class="modal"> 
+    <div id="forgot_username_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>Forgot Username</h1>
+            <button type="button" class="button" id = "back_button_forgot_username">Back Button</button>
+
+            <form id="forgot_username_form">
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="forgot_username_password" id="forgot_username_password" autocomplete="off">
+
+            </form>
+
+            <button type="button" class="button" id = "forgot_username_submit_password">Enter</button>
+
+        </div>
+    </div>
+
+    <div id="recovery_key_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>Enter Your Recovery Key</h1>
+            <button type="button" class="button" id = "recovery_key_back_button">Back Button</button>
+            <form id="recovery_key_form">
+
+                <input type="text" placeholder="Enter answer" name="recovery_key_input" id="recovery_key_input" autocomplete="off">
+
+            </form>
+
+            <button type="button" class="button" id = "recovery_key_submit_button">Submit</button>
+
+        </div>
+    </div>
+
+    <div id="create_security_questions_modal" class="modal"> 
         <div class="modal_content">
             <h1>Setup Security Questions</h1>
-            <button type="button" class="button" id = "back_button_setup_security_questions">Back Button</button>
+            <button type="button" class="button" id = "create_security_questions_back_button">Back Button</button>
+            <form id="create_security_questions_form">
             
-            <label for="question_1"><b>Question 1</b></label>
-            <input type="text" placeholder="Enter Question" name="question_1_setup_security_questions" id="question_1_setup_security_questions" required>
+                <label for="new_question_1"><b>Question 1</b></label>
+                <input type="text" placeholder="Enter Question" name="new_question_1" id="new_question_1" autocomplete="off">
+                <div id="question_1_requirements" class="requirements">
+                    <p>Security question must:</p>
+                    <ul>
+                        <li id="question_1_length">Be at least 10 characters long</li>
+                    </ul>
+                </div>
 
-            <label for="question_1"><b>Answer 1</b></label>
-            <input type="text" placeholder="Enter Answer" name="answer_1_setup_security_questions" id="answer_1_setup_security_questions" required>
+                <label for="new_answer_1"><b>Answer 1</b></label>
+                <input type="text" placeholder="Enter Answer" name="new_answer_1" id="new_answer_1" autocomplete="off">
+                <div id="answer_1_requirements" class="requirements">
+                    <p>Answer must:</p>
+                    <ul>
+                        <li id="answer_1_length">Be between 5-20 characters long</li>
+                    </ul>
+                </div>
 
-            <label for="question_2"><b>Question 2</b></label>
-            <input type="text" placeholder="Enter Question" name="question_2_setup_security_questions" id="question_2_setup_security_questions" required>
+                <label for="new_question_2"><b>Question 2</b></label>
+                <input type="text" placeholder="Enter Question" name="new_question_2" id="new_question_2" autocomplete="off">
+                <div id="question_2_requirements" class="requirements">
+                    <p>Security question must:</p>
+                    <ul>
+                        <li id="question_2_length">Be at least 10 characters long</li>
+                    </ul>
+                </div>
 
-            <label for="question_2"><b>Answer 2</b></label>
-            <input type="text" placeholder="Enter Answer" name="answer_2_setup_security_questions" id="answer_2_setup_security_questions" required>
+                <label for="new_answer_2"><b>Answer 2</b></label>
+                <input type="text" placeholder="Enter Answer" name="new_answer_2" id="new_answer_2" autocomplete="off">
+                <div id="answer_1_requirements" class="requirements">
+                    <p>Answer must:</p>
+                    <ul>
+                        <li id="answer_1_length">Be between 5-20 characters long</li>
+                    </ul>
+                </div>
 
-            <button type="button" class="button" id = "submit_setup_security_quenstion_answers">Submit</button>
+            </form>
+            <button type="button" class="button" id = "submit_new_security_questions">Submit</button>
 
         </div>
     </div>
-      
-    <div id = "home_screen">
-    <h1 class = "page_title">Password Manager</h1>
-    <button type="button" class="button" id = "sign_out_button">Logout</button>
 
-    <div class="tab_bar">
-        <button class="tab_link active button" onclick="open_tab(event, 'Passwords')">Passwords</button>
-        <button class="tab_link button" onclick="open_tab(event, 'Settings')">Settings</button>
+    <div id="forgot_credentials_modal" class="modal">
+        <div class="modal_content">
+            <h1>Forgot Credentials</h1>
+            <button type="button" class="button" id = "forgot_credentials_back_button">Back Button</button>
+
+            <button type="button" class="button" id = "forgot_password_button">Forgot Password</button>
+            <button type="button" class="button" id = "forgot_username_button">Forgot Username</button>
+            <button type="button" class="button" id = "forgot_both_button">Forgot both Username & Password</button>
+        </div>
     </div>
 
-    <div id="Passwords" class="tab_content">    
-        <button id="add_password_button" class="button">Add Password</button>
-        <div id="add_password_modal" class="modal"> 
-            <div class="modal_content">
-                <span class="close">&times;</span>
-                <form id="password_form">
-                    <label for="password_name">Name:</label>
-                    <input type="text" id="password_name" name="password_name" required>
+    <div id="reset_password_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>Reset Password</h1>
+            <button type="button" class="button" id = "reset_password_back_button">Back Button</button>
+            <form id="reset_password_form">
+
+                <label for="new_password"><b>New Password</b></label>
+                <input type="password" placeholder="Enter New Password" name="new_password" id="new_password" autocomplete="off">
+
+                <label for="confirm_new_password"><b>Confirm New Password</b></label>
+                <input type="password" placeholder="Confirm New Password" name="confirm_new_password" id="confirm_new_password" autocomplete="off">
+            
+            </form>
+            <button type="button" class="button" id = "reset_password_submit_button">Submit</button>
+        </div>
+    </div>
+
+    
+    <div id="home_screen">
+        <h1 class = "page_title">Password Manager</h1>
+        <button type="button" class="button" id = "sign_out_button">Logout</button>
+
+        <div class="tab_bar">
+            <button class="tab_link active button" onclick="open_tab(event, 'Passwords')">Passwords</button>
+            <button class="tab_link button" onclick="open_tab(event, 'Settings')">Settings</button>
+        </div>
+
+        <div id="Passwords" class="tab_content">    
+            <button id="add_password_button" class="button">Add Password</button>
+            <div id="add_password_modal" class="modal"> 
+                <div class="modal_content">
+                    <span class="close">&times;</span>
+                    <form id="password_form">
+                        <label for="password_name">Name:</label>
+                        <input type="text" id="password_name" name="password_name" autocomplete="off">
+                        
+                        <label for="website">Website:</label>
+                        <input type="text" id="website" name="website" autocomplete="off">
+                        
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" autocomplete="off">
+                        
+                        <label for="password">Password:</label>
+                        <input type="text" id="password" name="password" autocomplete="off">
+                        
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description" autocomplete="off">
+
+                        <button type="button" class="button" id="password_strength">Calculate Password Strength</h3>
+                        
+                        <button type="button" class="button" id = "password_submit_button">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="saved_passwords">
+                <h3>Saved Passwords</h3>
+                <div id = "password_button_container">
                     
-                    <label for="website">Website:</label>
-                    <input type="text" id="website" name="website" required>
+                </div>
+            </div>
+
+            <div id="master_password_modal" class="modal">
+                <div class="modal_content">
+                    <h1>Enter Master Password</h1>
+                    <button type="button" class="button" id = "master_password_back_button">Back Button</button>
+                    <form id="master_password_form">
+
+                        <label for="master_password"><b>Master Password</b></label>
+                        <input type="password" placeholder="Enter Master Password" name="master_password" id="master_password" autocomplete="off">
+
+                    </form>
+                    <button type="button" class="button" id = "master_password_submit_button">Submit</button>
+                </div>
+            </div>
+
+            <div id="saved_passwords_modal" class="modal">
+                <div class="modal_content">
+                <span class="close" id="detail_close">&times;</span>
+                <form id="saved_passwords_form">
+                    <label for="saved_passwords_modal_name">Name:</label>
+                    <input type="text" id="saved_passwords_modal_name" name="saved_passwords_modal_name" autocomplete="off">
                     
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <label for="saved_passwords_modal_website">Website:</label>
+                    <input type="text" id="saved_passwords_modal_website" name="saved_passwords_modal_website" autocomplete="off">
                     
-                    <label for="password">Password:</label>
-                    <input type="text" id="password" name="password" required>
+                    <label for="saved_passwords_modal_username">Username:</label>
+                    <input type="text" id="saved_passwords_modal_username" name="saved_passwords_modal_username" autocomplete="off">
                     
-                    <label for="description">Description:</label>
-                    <input type="text" id="description" name="description">
+                    <label for="saved_passwords_modal_passwords">Password:</label>
+                    <input type="text" id="saved_passwords_modal_passwords" name="saved_passwords_modal_passwords" autocomplete="off">
                     
-                    <button type="button" class="button" id = "password_submit_button">Save</button>
+                    <label for="saved_passwords_modal_description">Description:</label>
+                    <input type="text" id="saved_passwords_modal_description" name="saved_passwords_modal_description" autocomplete="off">
+
+                    <button type="button" class="button" id="saved_passwords_strength">Calculate Password Strength</h3>
+                    
+                    <button type="button" class="button" id="save_changes_button">Save Changes</button>
+                    <button type="button" class="button" id="delete_password_button">Delete Password</button>
                 </form>
+                </div>
             </div>
         </div>
-
-        <div id="saved_passwords">
-            <h3>Saved Passwords</h3>
-            <div id = "password_button_container">
-                
-            </div>
-        </div>
-
-        <div id="saved_passwords_modal" class="modal">
-            <div class="modal_content">
-              <span class="close" id="detail_close">&times;</span>
-              <form id="saved_passwords_form">
-                <label for="saved_passwords_modal_name">Name:</label>
-                <input type="text" id="saved_passwords_modal_name" name="saved_passwords_modal_name" required>
-                
-                <label for="saved_passwords_modal_website">Website:</label>
-                <input type="text" id="saved_passwords_modal_website" name="saved_passwords_modal_website" required>
-                
-                <label for="saved_passwords_modal_username">Username:</label>
-                <input type="text" id="saved_passwords_modal_username" name="saved_passwords_modal_username" required>
-                
-                <label for="saved_passwords_modal_passwords">Password:</label>
-                <input type="text" id="saved_passwords_modal_passwords" name="saved_passwords_modal_passwords" required>
-                
-                <label for="saved_passwords_modal_description">Description:</label>
-                <input type="text" id="saved_passwords_modal_description" name="saved_passwords_modal_description">
-                
-                <button type="button" class="button" id="save_changes_button">Save Changes</button>
-              </form>
-            </div>
-        </div>
-    </div>
     </div>
     <div id="Settings" class="tab_content">
         <h2>Settings</h2>
-        <p>This is the settings tab content.</p>
+        <button type="button" class="button" id = "restore_default_button">Reset to Default</button>
+        <div class="dropdown">
+            <button class="button">Background Colour</button>
+            <div id="background_colour_dropdown" class="dropdown-content">
+              <a id="dropdown_blue">Blue</a>
+              <a id="dropdown_red">Red</a>
+              <a id="dropdown_yellow">Yellow</a>
+              <a id="dropdown_green">Green</a>
+              <a id="dropdown_purple">Purple</a>
+              <a id="dropdown_orange">Orange</a>
+              <a id="dropdown_pink">Pink</a>
+              <a id="dropdown_brown">Brown</a>
+              <a id="dropdown_black">Black</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="button">Title Colour</button>
+            <div id="title_colour_dropdown"class="dropdown-content">
+              <a id="dropdown_blue">Blue</a>
+              <a id="dropdown_red">Red</a>
+              <a id="dropdown_yellow">Yellow</a>
+              <a id="dropdown_green">Green</a>
+              <a id="dropdown_purple">Purple</a>
+              <a id="dropdown_orange">Orange</a>
+              <a id="dropdown_pink">Pink</a>
+              <a id="dropdown_brown">Brown</a>
+              <a id="dropdown_black">Black</a>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
