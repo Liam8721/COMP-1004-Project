@@ -86,10 +86,10 @@
             <button type="button" class="button" id = "security_questions_back_button">Back Button</button>
             <form id="security_questions_form">
 
-                <label for="question_1"><b></b></label>
+                <label for="question_1_security_questions"><b></b></label>
                 <input type="text" placeholder="Enter answer" name="question_1_security_questions" id="question_1_security_questions" autocomplete="off">
 
-                <label for="question_2"><b></b></label>
+                <label for="question_2_security_questions"><b></b></label>
                 <input type="text" placeholder="Enter answer" name="question_2_security_questions" id="question_2_security_questions" autocomplete="off">
 
             </form>
@@ -101,16 +101,18 @@
     <div id="forgot_username_modal" class="modal"> 
         <div class="modal_content">
             <h1>Forgot Username</h1>
+            <p><strong>Enter your recovery key to retrieve your username.</strong></p>
+            <p><small>Your recovery key was provided when you created your account. It's a long alphanumeric string that looks like: "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="</small></p>
             <button type="button" class="button" id = "back_button_forgot_username">Back Button</button>
 
             <form id="forgot_username_form">
 
-                <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="forgot_username_password" id="forgot_username_password" autocomplete="off">
+                <label for="forgot_username_password"><b>Recovery Key</b></label>
+                <input type="text" placeholder="Enter Recovery Key" name="forgot_username_password" id="forgot_username_password" autocomplete="off">
 
             </form>
 
-            <button type="button" class="button" id = "forgot_username_submit_password">Enter</button>
+            <button type="button" class="button" id = "forgot_username_submit_password">Submit</button>
 
         </div>
     </div>
@@ -197,12 +199,38 @@
 
                 <label for="new_password"><b>New Password</b></label>
                 <input type="password" placeholder="Enter New Password" name="new_password" id="new_password" autocomplete="off">
+                <div id="reset_password_requirements" class="requirements">
+                    <p>Password must:</p>
+                    <ul>
+                        <li id="reset_password_length">Be between 8-12 characters long</li>
+                        <li id="reset_password_character_variety">Use at least 1 letter (a-Z), 1 number (0-9) and 1 special symbol (e.g., !, @, #, $, %, etc)</li>
+                        <li id="reset_password_case">Contain at least 1 uppercase and 1 lowercase letter</li>
+                    </ul>
+                </div>
 
                 <label for="confirm_new_password"><b>Confirm New Password</b></label>
                 <input type="password" placeholder="Confirm New Password" name="confirm_new_password" id="confirm_new_password" autocomplete="off">
+
+                <button type="button" class="button" id="reset_password_strength">Check Password Strength</button>
             
             </form>
             <button type="button" class="button" id = "reset_password_submit_button">Submit</button>
+        </div>
+    </div>
+
+    <div id="forgot_both_modal" class="modal"> 
+        <div class="modal_content">
+            <h1>Forgot Both Username & Password</h1>
+            <p><strong>Enter your recovery key to retrieve both your username and reset your password.</strong></p>
+            <p><small>Your recovery key was provided when you created your account. It's a long alphanumeric string that looks like: "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="</small></p>
+            <button type="button" class="button" id = "forgot_both_back_button">Back Button</button>
+
+            <form id="forgot_both_form">
+                <label for="forgot_both_recovery_key"><b>Recovery Key</b></label>
+                <input type="text" placeholder="Enter Recovery Key" name="forgot_both_recovery_key" id="forgot_both_recovery_key" autocomplete="off">
+            </form>
+
+            <button type="button" class="button" id = "forgot_both_submit_button">Submit</button>
         </div>
     </div>
 
@@ -329,7 +357,15 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="JS.js"></script>
+    
+    <!-- Password Manager Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/crypto.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/user-manager.js"></script>
+    <script src="js/ui-handlers.js"></script>
+    <script src="js/main.js"></script>
 
 
 </body>
